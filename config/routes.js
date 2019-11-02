@@ -14,3 +14,4 @@ router.use("/kategori", require("../routes/kategoriRouter"));
 router.use("/iuran", require("../routes/iuranWajibRouter"));
 router.use("/bayariuran", require("../routes/pembayaranIuranRouter"));
 router.use("/penarikan", require("../routes/penarikanRouter"));
+router.use("/promo", require("../routes/promoRouter"));

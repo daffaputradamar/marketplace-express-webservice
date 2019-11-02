@@ -7,9 +7,7 @@ module.exports = {
         where: {
           id_usaha: req.usaha
         },
-        include: {
-          model: [usaha, kategori]
-        }
+        include: [{ model: kategori }, { model: usaha }]
       })
       .then(function(rows) {
         res.json(rows);
@@ -18,9 +16,7 @@ module.exports = {
   show(req, res) {
     produk
       .findByPk(req.params.id, {
-        include: {
-          model: [usaha, kategori]
-        }
+        include: [{ model: usaha }, { model: kategori }]
       })
       .then(function(rows) {
         res.json(rows);

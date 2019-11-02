@@ -13,7 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       harga: DataTypes.INTEGER,
       berat: DataTypes.INTEGER,
       deskripsi: DataTypes.TEXT,
-      arsip: DataTypes.BOOLEAN,
+      arsip: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
       id_kategori: DataTypes.INTEGER,
       id_usaha: DataTypes.INTEGER
     },
