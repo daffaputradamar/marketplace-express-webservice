@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       timestamps: false,
       freezeTableName: true,
-      tableName: "keranjang"
+      tableName: "kategori"
     }
   );
   kategori.associate = function(models) {

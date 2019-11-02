@@ -29,7 +29,11 @@ module.exports = {
   },
   delete(req, res) {
     usaha.findByPk(req.params.id).then(row => {
-      row.destroy();
+      row.destroy().then(function() {
+        res.json({
+          success: true
+        });
+      });;
       res.json({
         success: true
       });

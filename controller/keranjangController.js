@@ -3,19 +3,17 @@ const { keranjang, produk, usaha } = require("../models");
 module.exports = {
   index(req, res) {
     keranjang
-      .findAll(
-        {
-          where : {
-            id_pengguna: req.user.id_pengguna
-          },
+      .findAll({
+        where: {
+          id_pengguna: req.user.id_pengguna
+        },
+        include: {
+          model: produk,
           include: {
-            model: produk,
-            include: {
-              model: usaha
-            }
+            model: usaha
           }
         }
-      )
+      })
       .then(function(rows) {
         res.json(rows);
       });
@@ -37,9 +35,9 @@ module.exports = {
             res.json(row);
           });
         } else {
-          let _keranjang = req.body
-          _keranjang.id_pengguna = req.user.id_pengguna
-          console.log(_keranjang)
+          let _keranjang = req.body;
+          _keranjang.id_pengguna = req.user.id_pengguna;
+          console.log(_keranjang);
           keranjang.create(_keranjang).then(function(row) {
             res.json(row);
           });
@@ -54,9 +52,10 @@ module.exports = {
   },
   delete(req, res) {
     keranjang.findByPk(req.params.id).then(function(row) {
-      row.destroy();
-      res.json({
-        success: true
+      row.destroy().then(function() {
+        res.json({
+          success: true
+        });
       });
     });
   }

@@ -37,9 +37,10 @@ module.exports = {
   },
   delete(req, res) {
     pembayaran_iuran.findByPk(req.params.id).then(row => {
-      row.destroy();
-      res.json({
-        success: true
+      row.destroy().then(function() {
+        res.json({
+          success: true
+        });
       });
     });
   }
