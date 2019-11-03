@@ -23,6 +23,9 @@ module.exports = {
       logo: {
         type: Sequelize.STRING
       },
+      saldo: {
+        type: Sequelize.INTEGER
+      },
       detail_alamat: {
         type: Sequelize.TEXT
       },
