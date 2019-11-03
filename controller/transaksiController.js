@@ -74,6 +74,7 @@ module.exports = {
         where: {
           id_pengguna: req.user.id_pengguna
         },
+        include: [{ model: pengguna }, { model: usaha }],
         order: [["createdAt", "DESC"]]
       })
       .then(function(rows) {
@@ -86,6 +87,7 @@ module.exports = {
         where: {
           id_usaha: req.user.usaha.id_usaha
         },
+        include: [{ model: pengguna }, { model: usaha }],
         order: [["createdAt", "DESC"]]
       })
       .then(function(rows) {
@@ -127,20 +129,86 @@ module.exports = {
       });
   },
   show(req, res) {
-    transaksi.findByPk(req.params.id).then(function(rows) {
-      res.json(rows);
-    });
+    transaksi
+      .findByPk(req.params.id, {
+        include: [
+          {
+            model: pengguna
+          },
+          {
+            model: usaha
+          }
+        ]
+      })
+      .then(function(rows) {
+        res.json(rows);
+      });
   },
   confirm(req, res) {
-    transaksi.findByPk(req.params.id).then(function(row) {
-      row
-        .update({
-          konfirmasi: true
-        })
-        .then(function(updatedRow) {
-          res.json(updatedRow);
-        });
-    });
+    transaksi
+      .findByPk(req.params.id, {
+        include: [
+          {
+            model: pengguna
+          },
+          {
+            model: usaha
+          }
+        ]
+      })
+      .then(function(row) {
+        row
+          .update({
+            konfirmasi: true
+          })
+          .then(function(updatedRow) {
+            res.json(updatedRow);
+          });
+      });
+  },
+  send(req, res) {
+    transaksi
+      .findByPk(req.params.id, {
+        include: [
+          {
+            model: pengguna
+          },
+          {
+            model: usaha
+          }
+        ]
+      })
+      .then(function(row) {
+        row
+          .update({
+            konfirmasi: true
+          })
+          .then(function(updatedRow) {
+            res.json(updatedRow);
+          });
+      });
+  },
+  finish(req, res) {
+    transaksi
+      .findByPk(req.params.id, {
+        include: [
+          {
+            model: pengguna
+          },
+          {
+            model: usaha
+          }
+        ]
+      })
+      .then(function(row) {
+        row
+          .update({
+            konfirmasi: true
+          })
+          .then(function(updatedRow) {
+            res.json(updatedRow);
+          });
+      });
   },
   showDetail(req, res) {
     detail_transaksi
