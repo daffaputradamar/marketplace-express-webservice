@@ -4,7 +4,8 @@ const {
   produk,
   keranjang,
   pengguna,
-  usaha
+  usaha,
+  review
 } = require("../models");
 const uuidv4 = require("uuid/v4");
 const Sequelize = require("sequelize");
@@ -74,7 +75,16 @@ module.exports = {
         where: {
           id_pengguna: req.user.id_pengguna
         },
-        include: [{ model: pengguna }, { model: usaha }],
+        include: [
+          { model: pengguna },
+          { model: usaha },
+          {
+            model: detail_transaksi,
+            include: {
+              model: produk
+            }
+          }
+        ],
         order: [["createdAt", "DESC"]]
       })
       .then(function(rows) {
@@ -87,7 +97,16 @@ module.exports = {
         where: {
           id_usaha: req.user.usaha.id_usaha
         },
-        include: [{ model: pengguna }, { model: usaha }],
+        include: [
+          { model: pengguna },
+          { model: usaha },
+          {
+            model: detail_transaksi,
+            include: {
+              model: produk
+            }
+          }
+        ],
         order: [["createdAt", "DESC"]]
       })
       .then(function(rows) {
@@ -101,11 +120,13 @@ module.exports = {
           konfirmasi: false
         },
         include: [
+          { model: pengguna },
+          { model: usaha },
           {
-            model: pengguna
-          },
-          {
-            model: usaha
+            model: detail_transaksi,
+            include: {
+              model: produk
+            }
           }
         ],
         order: [["createdAt", "DESC"]]
@@ -132,11 +153,13 @@ module.exports = {
     transaksi
       .findByPk(req.params.id, {
         include: [
+          { model: pengguna },
+          { model: usaha },
           {
-            model: pengguna
-          },
-          {
-            model: usaha
+            model: detail_transaksi,
+            include: {
+              model: produk
+            }
           }
         ]
       })
@@ -148,11 +171,13 @@ module.exports = {
     transaksi
       .findByPk(req.params.id, {
         include: [
+          { model: pengguna },
+          { model: usaha },
           {
-            model: pengguna
-          },
-          {
-            model: usaha
+            model: detail_transaksi,
+            include: {
+              model: produk
+            }
           }
         ]
       })
@@ -170,18 +195,21 @@ module.exports = {
     transaksi
       .findByPk(req.params.id, {
         include: [
+          { model: pengguna },
+          { model: usaha },
           {
-            model: pengguna
-          },
-          {
-            model: usaha
+            model: detail_transaksi,
+            include: {
+              model: produk
+            }
           }
         ]
       })
       .then(function(row) {
         row
           .update({
-            konfirmasi: true
+            no_resi: req.body.no_resi,
+            kirim: true
           })
           .then(function(updatedRow) {
             res.json(updatedRow);
@@ -192,21 +220,33 @@ module.exports = {
     transaksi
       .findByPk(req.params.id, {
         include: [
+          { model: pengguna },
+          { model: usaha },
           {
-            model: pengguna
-          },
-          {
-            model: usaha
+            model: detail_transaksi,
+            include: {
+              model: produk
+            }
           }
         ]
       })
       .then(function(row) {
         row
           .update({
-            konfirmasi: true
+            selesai: true
           })
           .then(function(updatedRow) {
-            res.json(updatedRow);
+            komentar = req.body.komentar ? req.body.komentar : "";
+            review
+              .create({
+                id_produk: req.body.id_produk,
+                id_pengguna: req.user.id_pengguna,
+                rating: req.body.rating,
+                komentar
+              })
+              .then(() => {
+                res.json(updatedRow);
+              });
           });
       });
   },
