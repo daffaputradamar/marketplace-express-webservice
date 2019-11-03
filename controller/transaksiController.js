@@ -1,6 +1,13 @@
-const { transaksi, detail_transaksi, produk, keranjang, pengguna, usaha } = require("../models");
+const {
+  transaksi,
+  detail_transaksi,
+  produk,
+  keranjang,
+  pengguna,
+  usaha
+} = require("../models");
 const uuidv4 = require("uuid/v4");
-const Sequelize = require('sequelize')
+const Sequelize = require("sequelize");
 
 const Op = Sequelize.Op;
 
@@ -46,7 +53,7 @@ function createTransaksi(trans, id_keranjang) {
       include: {
         model: produk,
         where: {
-          id_usaha: trans.id_usaha,
+          id_usaha: trans.id_usaha
         }
       }
     });
@@ -62,32 +69,48 @@ function createTransaksi(trans, id_keranjang) {
 
 module.exports = {
   index(req, res) {
-    transaksi.findAll({
-      where: {
-        id_pengguna: req.user.id_pengguna
-      }, 
-      order: [["createdAt", "DESC"]]
-    }).then(function(rows) {
-      res.json(rows);
-    });
+    transaksi
+      .findAll({
+        where: {
+          id_pengguna: req.user.id_pengguna
+        },
+        order: [["createdAt", "DESC"]]
+      })
+      .then(function(rows) {
+        res.json(rows);
+      });
+  },
+  indexUsaha(req, res) {
+    transaksi
+      .findAll({
+        where: {
+          id_usaha: req.user.usaha.id_usaha
+        },
+        order: [["createdAt", "DESC"]]
+      })
+      .then(function(rows) {
+        res.json(rows);
+      });
   },
   indexUnconfirmed(req, res) {
-    transaksi.findAll({
-      where: {
-        konfirmasi: false
-      },
-      include: [
-        {
-          model: pengguna
+    transaksi
+      .findAll({
+        where: {
+          konfirmasi: false
         },
-        {
-          model: usaha
-        }
-      ],
-      order: [["createdAt", "DESC"]]
-    }).then(function(rows) {
-      res.json(rows);
-    });
+        include: [
+          {
+            model: pengguna
+          },
+          {
+            model: usaha
+          }
+        ],
+        order: [["createdAt", "DESC"]]
+      })
+      .then(function(rows) {
+        res.json(rows);
+      });
   },
   indexDetail(req, res) {
     detail_transaksi
@@ -110,13 +133,14 @@ module.exports = {
   },
   confirm(req, res) {
     transaksi.findByPk(req.params.id).then(function(row) {
-      row.update({
-        konfirmasi: true
-      })
-      .then(function(updatedRow) {
-        res.json(updatedRow)
-      })
-    })
+      row
+        .update({
+          konfirmasi: true
+        })
+        .then(function(updatedRow) {
+          res.json(updatedRow);
+        });
+    });
   },
   showDetail(req, res) {
     detail_transaksi
@@ -130,7 +154,7 @@ module.exports = {
       });
   },
   store(req, res) {
-    const {id_keranjang, ...rest} = req.body
+    const { id_keranjang, ...rest } = req.body;
     transaksi
       .create({
         id_transaksi: uuidv4(),

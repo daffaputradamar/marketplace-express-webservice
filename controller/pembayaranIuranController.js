@@ -4,9 +4,7 @@ module.exports = {
   index(req, res) {
     pembayaran_iuran
       .findAll({
-        include: {
-          model: [pengguna, iuran_wajib]
-        }
+        include: [{ model: pengguna }, { model: iuran_wajib }]
       })
       .then(rows => {
         res.json(rows);
@@ -15,9 +13,7 @@ module.exports = {
   show(req, res) {
     pembayaran_iuran
       .findByPk(req.params.id, {
-        include: {
-          model: [pengguna, iuran_wajib]
-        }
+        include: [{ model: pengguna }, { model: iuran_wajib }]
       })
       .then(rows => {
         res.json(rows);
@@ -37,9 +33,10 @@ module.exports = {
   },
   delete(req, res) {
     pembayaran_iuran.findByPk(req.params.id).then(row => {
-      row.destroy();
-      res.json({
-        success: true
+      row.destroy().then(function() {
+        res.json({
+          success: true
+        });
       });
     });
   }

@@ -4,18 +4,22 @@ const bcrypt = require("bcrypt");
 
 module.exports = {
   index(req, res) {
-    pengguna.findAll({
-      include: [usaha]
-    }).then(rows => {
-      res.json(rows);
-    });
+    pengguna
+      .findAll({
+        include: [usaha]
+      })
+      .then(rows => {
+        res.json(rows);
+      });
   },
   show(req, res) {
-    pengguna.findByPk(req.params.id, {
-      include: [usaha]
-    }).then(row => {
-      res.json(row);
-    });
+    pengguna
+      .findByPk(req.params.id, {
+        include: [usaha]
+      })
+      .then(row => {
+        res.json(row);
+      });
   },
   authenticate(req, res) {
     pengguna
@@ -26,7 +30,7 @@ module.exports = {
         include: [usaha]
       })
       .then(row => {
-        if(!row) {
+        if (!row) {
           return res.json({
             success: false,
             message: "Username tidak ditemukan"
@@ -86,9 +90,10 @@ module.exports = {
   },
   delete(req, res) {
     pengguna.findByPk(req.user.id_pengguna).then(row => {
-      row.destroy();
-      res.json({
-        success: true
+      row.destroy().then(function() {
+        res.json({
+          success: true
+        });
       });
     });
   },
@@ -96,60 +101,65 @@ module.exports = {
     // const encoded = `data:${
     //   req.file.mimetype
     // };base64,${req.file.buffer.toString("base64")}`;
-    pengguna.findByPk(req.user.id_pengguna, {
-      include: [usaha]
-    }).then(row => {
-      row.update({
-        keanggotaan: true,
-        // bukti_bayar: encoded
+    pengguna
+      .findByPk(req.user.id_pengguna, {
+        include: [usaha]
       })
-      .then((updatedRow) => {
-        jwt.sign(
-          {
-            id_pengguna: row.id_pengguna,
-            username: row.username,
-            nama: row.nama,
-            keanggotaan: row.keanggotaan,
-            usaha: row.usaha
-          },
-          "ayoKerja",
-          function(err, token) {
-            res.json({
-              success: true,
-              user: updatedRow,
-              token
-            });
-          }
-        );
-      })
-    })
+      .then(row => {
+        row
+          .update({
+            keanggotaan: true
+            // bukti_bayar: encoded
+          })
+          .then(updatedRow => {
+            jwt.sign(
+              {
+                id_pengguna: row.id_pengguna,
+                username: row.username,
+                nama: row.nama,
+                keanggotaan: row.keanggotaan,
+                usaha: row.usaha
+              },
+              "ayoKerja",
+              function(err, token) {
+                res.json({
+                  success: true,
+                  user: updatedRow,
+                  token
+                });
+              }
+            );
+          });
+      });
   },
   bukaUsaha(req, res) {
     usaha
-      .create({...req.body, id_pengguna: req.user.id_pengguna})
+      .create({ ...req.body, id_pengguna: req.user.id_pengguna })
       .then(row => {
-        pengguna.findByPk(req.user.id_pengguna, {
-          include: [usaha]
-        }).then(pengguna => {
-          jwt.sign(
-            {
-              id_pengguna: pengguna.id_pengguna,
-              username: pengguna.username,
-              nama: pengguna.nama,
-              keanggotaan: pengguna.keanggotaan,
-              usaha: pengguna.usaha
-            },
-            "ayoKerja",
-            function(err, token) {
-              res.json({
-                success: true,
-                user: pengguna,
-                token
-              });
-            }
-          );
-        })
+        pengguna
+          .findByPk(req.user.id_pengguna, {
+            include: [usaha]
+          })
+          .then(pengguna => {
+            jwt.sign(
+              {
+                id_pengguna: pengguna.id_pengguna,
+                username: pengguna.username,
+                nama: pengguna.nama,
+                keanggotaan: pengguna.keanggotaan,
+                usaha: pengguna.usaha
+              },
+              "ayoKerja",
+              function(err, token) {
+                res.json({
+                  success: true,
+                  user: pengguna,
+                  token
+                });
+              }
+            );
+          });
       })
-      .catch(err => res.json(err))
+      .catch(err => res.json(err));
   }
 };

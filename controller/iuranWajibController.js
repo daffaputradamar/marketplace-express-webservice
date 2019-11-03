@@ -16,11 +16,12 @@ module.exports = {
       res.json(rows);
     });
   },
-  delete(req, res) {
+  destroy(req, res) {
     iuran_wajib.findByPk(req.params.id).then(row => {
-      row.destroy();
-      res.json({
-        success: true
+      row.destroy().then(function() {
+        res.json({
+          success: true
+        });
       });
     });
   }

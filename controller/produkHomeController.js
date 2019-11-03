@@ -1,13 +1,13 @@
-const { produk, usaha } = require("../models");
+const { produk, usaha, kategori } = require("../models");
 
 module.exports = {
   index(req, res) {
-    produk.findAll({
-      include: {
-        model: usaha
-      }
-    }).then(function(rows) {
-      res.json(rows);
-    });
+    produk
+      .findAll({
+        include: [{ model: usaha }, { model: kategori }]
+      })
+      .then(function(rows) {
+        res.json(rows);
+      });
   }
 };
