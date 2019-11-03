@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     pengguna.hasMany(models.transaksi, { foreignKey: "id_pengguna" });
     pengguna.hasMany(models.pembayaran_iuran, { foreignKey: "id_pengguna" });
     pengguna.hasMany(models.penarikan, { foreignKey: "id_pengguna" });
+    pengguna.hasMany(models.review, { foreignKey: "id_pengguna" });
   };
   return pengguna;
 };

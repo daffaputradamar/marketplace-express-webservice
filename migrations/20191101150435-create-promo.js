@@ -17,6 +17,9 @@ module.exports = {
       id_usaha: {
         type: Sequelize.INTEGER
       },
+      bukti_bayar: {
+        type: Sequelize.TEXT
+      }.
       konfirmasi: {
         type: Sequelize.BOOLEAN
       }

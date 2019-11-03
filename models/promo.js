@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       imageurl: DataTypes.STRING,
       id_usaha: DataTypes.INTEGER,
+      bukti_bayar: DataTypes.TEXT,
       konfirmasi: DataTypes.BOOLEAN
     },
     {
