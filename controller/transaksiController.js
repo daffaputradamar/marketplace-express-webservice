@@ -39,7 +39,9 @@ function updateTransaksi(transaksi, detail) {
   let trans = transaksi;
   trans.total_harga += detail.subtotal;
   trans.total_berat += detail.berat;
-  trans.profit_koperasi = Math.floor((trans.total_harga * 1) / 100);
+  trans.profit_koperasi = Math.floor(
+    ((trans.total_harga + trans.ongkir) * 1) / 100
+  );
   return trans;
 }
 
@@ -188,7 +190,17 @@ module.exports = {
             konfirmasi: true
           })
           .then(function(updatedRow) {
-            res.json(updatedRow);
+            usaha.findByPk(row.id_usaha).then(usaha => {
+              usaha
+                .update({
+                  saldo:
+                    usaha.saldo +
+                    (row.total_harga + row.ongkir - row.profit_koperasi)
+                })
+                .then(() => {
+                  res.json(updatedRow);
+                });
+            });
           });
       });
   },
