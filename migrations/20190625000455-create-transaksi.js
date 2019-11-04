@@ -55,7 +55,9 @@ module.exports = {
       id_pengguna: {
         type: Sequelize.INTEGER
       },
-
+      profit_koperasi: {
+        type: DataTypes.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

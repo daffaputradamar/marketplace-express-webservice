@@ -35,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false
       },
+      profit_koperasi: DataTypes.INTEGER,
       no_resi: DataTypes.STRING,
       kota_asal: DataTypes.INTEGER,
       nama_kota_asal: DataTypes.STRING,

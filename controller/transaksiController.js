@@ -39,6 +39,7 @@ function updateTransaksi(transaksi, detail) {
   let trans = transaksi;
   trans.total_harga += detail.subtotal;
   trans.total_berat += detail.berat;
+  trans.profit_koperasi = Math.floor((trans.total_harga * 1) / 100);
   return trans;
 }
 
