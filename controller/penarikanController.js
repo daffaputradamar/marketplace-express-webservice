@@ -23,9 +23,33 @@ module.exports = {
         res.json(rows);
       });
   },
+  confirm(req, res) {
+    penarikan
+      .findByPk(req.params.id, {
+        include: {
+          model: pengguna
+        }
+      })
+      .then(row => {
+        row
+          .update({
+            konfirmasi: true
+          })
+          .then(() => {
+            usaha.findByPk(req.user.id_usaha).then(usaha => {
+              usaha
+                .update({
+                  saldo: usaha.saldo - row.jumlah
+                })
+                .then(() => {
+                  res.json(row);
+                });
+            });
+          });
+      });
+  },
   store(req, res) {
-    const penarikan = { ...req.body };
-    penarikan.id_pengguna = req.user.id_pengguna;
+    const penarikan = { ...req.body, id_pengguna: req.user.id_pengguna };
     penarikan.create({ ...penarikan }).then(row => {
       res.json(row);
     });

@@ -14,6 +14,13 @@ module.exports = {
       jumlah: {
         type: Sequelize.INTEGER
       },
+      no_rek: {
+        type: Sequelize.STRING
+      },
+      konfirmasi: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

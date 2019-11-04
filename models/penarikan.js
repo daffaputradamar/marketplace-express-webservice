@@ -9,7 +9,9 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true
       },
       id_pengguna: DataTypes.INTEGER,
-      jumlah: DataTypes.INTEGER
+      no_rek: DataTypes.STRING,
+      jumlah: DataTypes.INTEGER,
+      konfirmasi: DataTypes.BOOLEAN
     },
     {
       freezeTableName: true,

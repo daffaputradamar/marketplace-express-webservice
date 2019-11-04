@@ -24,7 +24,8 @@ module.exports = {
         type: Sequelize.TEXT
       },
       arsip: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       id_usaha: {
         type: Sequelize.INTEGER

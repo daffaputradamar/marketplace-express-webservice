@@ -6,7 +6,8 @@ module.exports = {
       .findAll({
         include: {
           model: usaha
-        }
+        },
+        order: [["createdAt", "DESC"]]
       })
       .then(function(rows) {
         res.json(rows);
@@ -24,7 +25,8 @@ module.exports = {
       });
   },
   store(req, res) {
-    promo.create({ ...req.body }).then(function(row) {
+    const newPromo = { ...req.body, id_usaha: req.user.id_usaha };
+    promo.create({ ...newPromo }).then(function(row) {
       res.json;
     });
   },

@@ -20,7 +20,8 @@ module.exports = {
       });
   },
   store(req, res) {
-    review.create({ ...req.body }).then(function(row) {
+    const newReview = { ...req.body, id_pengguna: req.user.id_pengguna };
+    review.create({ ...newReview }).then(function(row) {
       res.json;
     });
   },

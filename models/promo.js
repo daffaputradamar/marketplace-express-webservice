@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       konfirmasi: DataTypes.BOOLEAN
     },
     {
-      timestamps: false,
       freezeTableName: true,
       tableName: "promo"
     }

@@ -1,4 +1,4 @@
-const { produk, usaha, kategori } = require("../models");
+const { produk, usaha, kategori, review } = require("../models");
 
 module.exports = {
   index(req, res) {
@@ -16,7 +16,11 @@ module.exports = {
   show(req, res) {
     produk
       .findByPk(req.params.id, {
-        include: [{ model: usaha }, { model: kategori }]
+        include: [
+          { model: usaha },
+          { model: kategori },
+          { model: review, include: { model: pengguna } }
+        ]
       })
       .then(function(rows) {
         res.json(rows);
@@ -31,6 +35,17 @@ module.exports = {
     produk.findByPk(req.params.id).then(function(row) {
       row.update(req.body);
       res.json(row);
+    });
+  },
+  archive(req, res) {
+    produk.findByPk(req.params.id).then(function(row) {
+      row
+        .update({
+          arsip: true
+        })
+        .then(() => {
+          res.json(row);
+        });
     });
   },
   destroy(req, res) {

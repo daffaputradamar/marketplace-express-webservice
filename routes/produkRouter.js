@@ -10,6 +10,7 @@ router.get("/", produkController.index);
 router.get("/:id", produkController.show);
 router.use([verifyToken, isAnggota]);
 router.post("/", produkController.store);
+router.post("/arsip", produkController.archive);
 router.put("/:id", produkController.update);
 router.delete("/:id", produkController.destroy);
 

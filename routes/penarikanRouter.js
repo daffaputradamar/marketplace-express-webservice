@@ -7,6 +7,7 @@ const verifyToken = require("../middlewares/verifyToken");
 
 router.get("/", penarikanController.index);
 router.get("/:id", penarikanController.show);
+router.get("/konfirmasi", penarikanController.confirm);
 router.use(verifyToken);
 router.post("/", penarikanController.store);
 router.delete("/:id", penarikanController.delete);

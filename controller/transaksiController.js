@@ -249,18 +249,20 @@ module.exports = {
             selesai: true
           })
           .then(function(updatedRow) {
-            komentar = req.body.komentar ? req.body.komentar : "";
-            review
-              .create({
-                id_produk: req.body.id_produk,
-                id_pengguna: req.user.id_pengguna,
-                rating: req.body.rating,
-                komentar
-              })
-              .then(() => {
-                res.json(updatedRow);
-              });
+            res.json(updatedRow);
           });
+      });
+  },
+  review(req, res) {
+    review
+      .create({
+        id_produk: req.body.id_produk,
+        id_pengguna: req.user.id_pengguna,
+        rating: req.body.rating,
+        komentar: req.body.komentar ? req.body.komentar : ""
+      })
+      .then(() => {
+        res.json(updatedRow);
       });
   },
   showDetail(req, res) {

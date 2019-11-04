@@ -19,9 +19,17 @@ module.exports = {
       },
       bukti_bayar: {
         type: Sequelize.TEXT
-      }.
+      },
       konfirmasi: {
         type: Sequelize.BOOLEAN
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       }
     });
   },
