@@ -1,8 +1,8 @@
-const { promo, usaha } = require("../models");
+const { iklan, usaha } = require("../models");
 
 module.exports = {
   index(req, res) {
-    promo
+    iklan
       .findAll({
         include: {
           model: usaha
@@ -14,7 +14,7 @@ module.exports = {
       });
   },
   show(req, res) {
-    promo
+    iklan
       .findByPk(req.params.id, {
         include: {
           model: usaha
@@ -25,13 +25,13 @@ module.exports = {
       });
   },
   store(req, res) {
-    const newPromo = { ...req.body, id_usaha: req.user.id_usaha };
-    promo.create({ ...newPromo }).then(function(row) {
+    const newIklan = { ...req.body, id_usaha: req.user.id_usaha };
+    iklan.create({ ...newIklan }).then(function(row) {
       res.json;
     });
   },
   destroy(req, res) {
-    promo.findByPk(req.params.id).then(function(row) {
+    iklan.findByPk(req.params.id).then(function(row) {
       row.destroy().then(function() {
         res.json({
           success: true

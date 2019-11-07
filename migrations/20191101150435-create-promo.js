@@ -1,14 +1,14 @@
 "use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("promo", {
+    return queryInterface.createTable("iklan", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_promo: {
+      id_iklan: {
         type: Sequelize.INTEGER
       },
       imageurl: {
@@ -34,6 +34,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("promo");
+    return queryInterface.dropTable("iklan");
   }
 };

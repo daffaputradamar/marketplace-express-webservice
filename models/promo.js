@@ -1,9 +1,9 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const promo = sequelize.define(
-    "promo",
+  const iklan = sequelize.define(
+    "iklan",
     {
-      id_promo: {
+      id_iklan: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       freezeTableName: true,
-      tableName: "promo"
+      tableName: "iklan"
     }
   );
-  promo.associate = function(models) {
-    promo.belongsTo(models.usaha, { foreignKey: "id_usaha" });
+  iklan.associate = function(models) {
+    iklan.belongsTo(models.usaha, { foreignKey: "id_usaha" });
   };
-  return promo;
+  return iklan;
 };

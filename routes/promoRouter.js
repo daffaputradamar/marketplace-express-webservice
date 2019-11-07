@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const promoController = require("../controller/promoController");
+const iklanController = require("../controller/iklanController");
 
 const verifyToken = require("../middlewares/verifyToken");
 
-router.get("/", promoController.index);
-router.get("/:id", promoController.show);
+router.get("/", iklanController.index);
+router.get("/:id", iklanController.show);
 router.use(verifyToken);
-router.post("/", promoController.store);
-router.delete("/:id", promoController.destroy);
+router.post("/", iklanController.store);
+router.delete("/:id", iklanController.destroy);
 
 module.exports = router;

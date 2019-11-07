@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     usaha.belongsTo(models.pengguna, { foreignKey: "id_pengguna" });
     usaha.hasMany(models.produk, { foreignKey: "id_usaha" });
     usaha.hasMany(models.transaksi, { foreignKey: "id_usaha" });
-    usaha.hasMany(models.promo, { foreignKey: "id_usaha" });
+    usaha.hasMany(models.iklan, { foreignKey: "id_usaha" });
   };
   return usaha;
 };
