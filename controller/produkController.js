@@ -1,4 +1,4 @@
-const { produk, usaha, kategori, review } = require("../models");
+const { produk, usaha, kategori, review, pengguna } = require("../models");
 
 module.exports = {
   index(req, res) {
@@ -19,7 +19,7 @@ module.exports = {
         include: [
           { model: usaha },
           { model: kategori },
-          { model: review, include: { model: pengguna } }
+          { model: review, include: pengguna }
         ]
       })
       .then(function(rows) {
