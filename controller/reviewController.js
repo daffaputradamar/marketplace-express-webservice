@@ -20,7 +20,7 @@ module.exports = {
       });
   },
   store(req, res) {
-    const { id_detiltransaksi, rest } = req.body;
+    const { id_detiltransaksi, ...rest } = req.body;
     const newReview = { ...rest, id_pengguna: req.user.id_pengguna };
     review.create({ ...newReview }).then(function(row) {
       detail_transaksi.findByPk(id_detiltransaksi).then(detail => {
