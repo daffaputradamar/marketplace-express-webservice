@@ -23,7 +23,7 @@ module.exports = {
     const newReview = { ...req.body, id_pengguna: req.user.id_pengguna };
     review.create({ ...newReview }).then(function(row) {
       detail_transaksi.findByPk(req.body.id_produk).then(detail => {
-        detail.rating = true;
+        detail.review = true;
         detail.save().then(() => res.json(row));
       });
     });
