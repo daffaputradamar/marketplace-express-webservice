@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       id_transaksi: DataTypes.STRING,
       id_produk: DataTypes.INTEGER,
+      review: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
       subtotal: DataTypes.INTEGER,
       jumlah: DataTypes.INTEGER,
       berat: DataTypes.INTEGER

@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       rating: {
-        type: Sequelize.FLOAT
+        type: Sequelize.INTEGER
       },
       komentar: {
         type: Sequelize.TEXT

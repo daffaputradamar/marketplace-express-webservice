@@ -1,4 +1,4 @@
-const { pengguna, produk, review } = require("../models");
+const { pengguna, produk, review, detail_transaksi } = require("../models");
 
 module.exports = {
   index(req, res) {
@@ -22,7 +22,10 @@ module.exports = {
   store(req, res) {
     const newReview = { ...req.body, id_pengguna: req.user.id_pengguna };
     review.create({ ...newReview }).then(function(row) {
-      res.json;
+      detail_transaksi.findByPk(req.body.id_produk).then(detail => {
+        detail.rating = true;
+        detail.save().then(() => res.json(row));
+      });
     });
   },
   destroy(req, res) {

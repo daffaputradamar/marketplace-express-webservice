@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       id_produk: DataTypes.INTEGER,
       id_pengguna: DataTypes.INTEGER,
-      rating: DataTypes.FLOAT,
+      rating: DataTypes.INTEGER,
       komentar: {
         type: DataTypes.TEXT,
         defaultValue: ""

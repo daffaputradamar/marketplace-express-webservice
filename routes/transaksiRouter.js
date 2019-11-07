@@ -12,7 +12,6 @@ router.use(verifyToken);
 router.put("/:id/konfirmasi", transaksiController.confirm);
 router.put("/:id/kirim", transaksiController.send);
 router.put("/:id/selesai", transaksiController.finish);
-router.put("/:id/review", transaksiController.review);
 router.get("/unconfirmed", transaksiController.indexUnconfirmed);
 router.get("/", transaksiController.index);
 router.get("/usaha", transaksiController.indexUsaha);

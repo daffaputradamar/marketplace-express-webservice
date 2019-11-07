@@ -22,6 +22,9 @@ module.exports = {
       },
       berat: {
         type: Sequelize.INTEGER
+      },
+      review: {
+        type: Sequelize.BOOLEAN
       }
     });
   },
