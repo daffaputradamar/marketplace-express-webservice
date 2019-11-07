@@ -20,9 +20,10 @@ module.exports = {
       });
   },
   store(req, res) {
-    const newReview = { ...req.body, id_pengguna: req.user.id_pengguna };
+    const { id_detiltransaksi, rest } = req.body;
+    const newReview = { ...rest, id_pengguna: req.user.id_pengguna };
     review.create({ ...newReview }).then(function(row) {
-      detail_transaksi.findByPk(req.body.id_produk).then(detail => {
+      detail_transaksi.findByPk(id_detiltransaksi).then(detail => {
         detail.review = true;
         detail.save().then(() => res.json(row));
       });
