@@ -252,7 +252,7 @@ module.exports = {
             res.json(updatedRow);
           });
       });
-  }
+  },
   showDetail(req, res) {
     detail_transaksi
       .findByPk(req.params.id_detail, {

@@ -56,7 +56,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       profit_koperasi: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
