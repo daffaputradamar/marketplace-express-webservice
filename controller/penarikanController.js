@@ -1,4 +1,4 @@
-const { penarikan, pengguna, iuran_wajib } = require("../models");
+const { penarikan, pengguna, iuran_wajib, usaha } = require("../models");
 
 module.exports = {
   index(req, res) {
@@ -47,10 +47,10 @@ module.exports = {
           konfirmasi: true
         })
         .then(() => {
-          usaha.findByPk(req.user.id_usaha).then(usaha => {
-            usaha
+          usaha.findOne({ where: {id_pengguna: row.id_pengguna}}).then(selectedUsaha => {
+            selectedUsaha
               .update({
-                saldo: usaha.saldo - row.jumlah
+                saldo: selectedUsaha.saldo - row.jumlah
               })
               .then(() => {
                 res.json(row);
