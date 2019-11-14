@@ -5,7 +5,8 @@ const penarikanController = require("../controller/penarikanController");
 
 const verifyToken = require("../middlewares/verifyToken");
 
-router.get("/", penarikanController.index);
+router.get("/", verifyToken, penarikanController.index);
+router.get("/unconfirmed", penarikanController.indexConfirmed);
 router.get("/:id", penarikanController.show);
 router.get("/konfirmasi", penarikanController.confirm);
 router.use(verifyToken);

@@ -17,6 +17,9 @@ module.exports = {
       no_rek: {
         type: Sequelize.STRING
       },
+      atas_nama: {
+        type: Sequelize.STRING
+      },
       konfirmasi: {
         type: Sequelize.BOOLEAN,
         defaultValue: false

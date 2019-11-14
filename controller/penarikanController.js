@@ -4,6 +4,9 @@ module.exports = {
   index(req, res) {
     penarikan
       .findAll({
+        where: {
+          id_pengguna: req.user.id_pengguna
+        },
         include: {
           model: pengguna
         }
@@ -23,30 +26,38 @@ module.exports = {
         res.json(rows);
       });
   },
-  confirm(req, res) {
+  indexConfirmed(req, res) {
     penarikan
-      .findByPk(req.params.id, {
+      .findAll({
+        where: {
+          konfirmasi: false
+        },
         include: {
           model: pengguna
         }
       })
-      .then(row => {
-        row
-          .update({
-            konfirmasi: true
-          })
-          .then(() => {
-            usaha.findByPk(req.user.id_usaha).then(usaha => {
-              usaha
-                .update({
-                  saldo: usaha.saldo - row.jumlah
-                })
-                .then(() => {
-                  res.json(row);
-                });
-            });
-          });
+      .then(rows => {
+        res.json(rows);
       });
+  },
+  confirm(req, res) {
+    penarikan.findByPk(req.params.id).then(row => {
+      row
+        .update({
+          konfirmasi: true
+        })
+        .then(() => {
+          usaha.findByPk(req.user.id_usaha).then(usaha => {
+            usaha
+              .update({
+                saldo: usaha.saldo - row.jumlah
+              })
+              .then(() => {
+                res.json(row);
+              });
+          });
+        });
+    });
   },
   store(req, res) {
     const penarikan = { ...req.body, id_pengguna: req.user.id_pengguna };

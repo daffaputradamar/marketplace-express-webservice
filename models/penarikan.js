@@ -10,8 +10,12 @@ module.exports = (sequelize, DataTypes) => {
       },
       id_pengguna: DataTypes.INTEGER,
       no_rek: DataTypes.STRING,
+      atas_nama: DataTypes.STRING,
       jumlah: DataTypes.INTEGER,
-      konfirmasi: DataTypes.BOOLEAN
+      konfirmasi: {
+        type: DataTypes.BOOLEAN,
+        defaulValue: false
+      }
     },
     {
       freezeTableName: true,
