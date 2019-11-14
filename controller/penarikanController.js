@@ -60,8 +60,9 @@ module.exports = {
     });
   },
   store(req, res) {
-    const penarikan = { ...req.body, id_pengguna: req.user.id_pengguna };
-    penarikan.create({ ...penarikan }).then(row => {
+    console.log(req.body)
+    const newpenarikan = { ...req.body, id_pengguna: req.user.id_pengguna };
+    penarikan.create({ ...newpenarikan }).then(row => {
       res.json(row);
     });
   },
